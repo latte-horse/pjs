@@ -1,66 +1,65 @@
 package lab.komoran;
 
 import java.util.List;
-
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.KomoranResult;
 import kr.co.shineware.nlp.komoran.model.Token;
 
+
 //https://docs.komoran.kr/firststep/tutorial.html 사이트 참고!!!!
 
-
-public class test  {
-
-   
+public class test  {   
    public static void main(String[] args) {
-       Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
-        String strToAnalyze = ("NASA 수석 과학자 경고..\"코페르니쿠스적 혁명적 사고 전환 가져올 것\"\r\n" + 
-              "화성 생명체 존재를 확인하게 될 마즈2020 [NASA/JPL-Caltech 제공]\r\n" + 
-              "화성 생명체 존재를 확인하게 될 엑소\r\n" + 
-              "(서울=연합뉴스) 엄남석 기자 = 인류는 2021년 중반께면 화성에 보낸 로버를 통해 생명체가 존재하는지에 대한 확답을 얻을 수 있지만 외계 생명체 존재가 확인됐을 때 갖는 혁명적 의미를 받아들일 준비가 아직 안 돼 있다고 미국항공우주국(NASA) 수석 과학자가 경고했다.\r\n" + 
-              "\r\n" + 
-              "NASA와 유럽우주국(ESA)이 나란히 발사할 화성 탐사 로버 '마즈(Mars)2020'과 '엑소마즈(ExoMars)' 프로젝트에 핵심 역할을 해온 NASA 수석과학자 짐 그린 박사는 29일 영국 선데이 텔레그래프와의 회견에서 두 로버가 생명체 탐사에 답을 해줄 최상의 기회가 될 것이라며 이런 우려를 나타냈다.\r\n" + 
-              "\r\n" + 
-              "두 로버는 내년 7~8월에 발사돼 마즈2020은 이듬해 2월, 엑소마즈는 3월에 화성에 도착한다. 특히 영국 화학자 로잘린드 프랭클린의 이름을 따 '로잘린드'로도 불리는 엑소마즈는 2ｍ가량 땅을 파고 샘플을 채취한 로버에 탑재된 장비로 유기물 존재 여부를 검사할 수 있다. 따라서 착륙 후 수주에서 몇 달 안에 생명체 존재 여부를 확인할 수 있다.\r\n" + 
-              "\r\n" + 
-              "마즈2020도 화성의 생명체 탐사를 주요임무로 하고 있어, 두 로버가 2021년 여름께 경쟁적으로 생명체 탐사결과를 보내올 것으로 기대되고 있다.\r\n" + 
-              "\r\n" + 
-              "기자회견 중인 그린 박사 [자료사진] [EPA=연합뉴스]\r\n" + 
-              "\r\n" + 
-              "기자회견 중인 그린 박사 [자료사진] [EPA=연합뉴스]\r\n" + 
-              "그린 박사는 과거든 현재든 생명체 존재가 확인되면 \"혁명적일 것\"이라면서 \"코페르니쿠스가 지동설을 주장했을 때처럼 사고를 완전히 바꿔놓기 시작하겠지만 우리가 그런 결과에 준비가 돼 있다고 생각하지 않는다\"고 했다.\r\n" + 
-              "\r\n" + 
-              "그러면서 \"생명체를 발견하고 결과를 발표해야 할 시점에 점점 더 다가서고 있다고 생각하기 때문에 걱정하고 있다\"고 덧붙였다.\r\n" + 
-              "\r\n" + 
-              "NASA에서 38년간 일해온 그린 박사는 다른 행성에 작은 유기체가 존재하는 것으로 믿고 있으며, 더 나아가 토성의 위성(달) 타이탄에 '이상한 생명체'가 있을 수 있으며 멀지않은 다른 은하에 외계문명이 존재할 수 있다고 믿고있다.\r\n" + 
-              "\r\n" + 
-              "그린 박사는 수십억년 전 생명체가 살았을지도 모를 고대 바다 인근을 탐색하게 되는 두 로버가 \"정말로 생명체를 찾을 가능성이 있고 그러길 바라기 때문에 이번 탐사 프로젝트에 기대감을 갖고 있다\"면서 \"생명체는 환경이 극단적으로 나빠지면 바위 속으로 들어가는데 우리는 이 깊이까지 파본 적이 없다\"고 했다.\r\n" + 
-              "\r\n" + 
-              "그러면서 \"1990년대에 우주생물학을 시작할 때 극단적인 환경에서 사는 생물을 찾기 시작했다\"면서 \"아무것도 살 수 없을 것으로 여겨졌던 핵 오수도 생명체로 넘쳐났으며 물이 있는 곳에 생명체가 있었다\"고 덧붙였다.\r\n" + 
-              "\r\n" + 
-              "그린 박사는 또 화성에 로버를 안착시키는 것은 \"뉴욕에서 골프공을 쳐 로스앤젤레스(골프장)에 홀인원 시키는 것과 같다\"면서 \"NASA와 ESA는 이런 불가능한 일을 매일 하고 있으며, 항상 기적 같은 일을 수행하고 있다\"고 했다.\r\n" + 
-              "\r\n" + 
-              "eomns@yna.co.kr\r\n" + 
-              "\r\n" + 
-              "이슈 · 화성 탐사\r\n" + 
-              "저작권자(c)연합뉴스. 무단전재-재배포금지마즈 궤도선과 로버 [ESA/ATG 미디어랩]");
-
+        Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
+        String strToAnalyze = ("여자화장실서 일면식도 없는 남성 '묻지마 폭행'\r\n" + 
+        		"뛰쳐나간 여성 따라가 지속해서 폭행\r\n" + 
+        		"피해자 뇌진탕 증세 호소, 트라우마로 화장실 못 가\r\n" + 
+        		"자료사진.사진은 기사 중 특정표현과 관계없음. [이미지출처=연합뉴스]\r\n" + 
+        		"[아시아경제 한승곤 기자] 한 남성이 여자화장실에서 일면식도 없는 여성을 무차별 폭행하고 달아나 경찰이 수사에 나섰다. 여성은 온라인을 통해 피해 사실과 용의자 인상착의를 공개했다. 현재 이 여성은 전치 3주 수준의 피해를 입고 정신과 치료도 병행하고 있는 것으로 알려졌다.\r\n" + 
+        		"\r\n" + 
+        		"사건을 수사하고 있는 경기 일산 경찰서에 따르면 지난 22일 새벽 1시30분께 일산 마두동 한 건물 3층 여자화장실서 30대 중반 여성 A 씨가 한 화장실 칸에서 일면식도 없는 남성에게 이른바 '묻지마 폭행'을 당했다.\r\n" + 
+        		"\r\n" + 
+        		"A 씨는 남편과 함께 노래방에 놀러온 뒤, 잠시 화장실로 갔다가 변을 당한 것으로 알려졌다.\r\n" + 
+        		"\r\n" + 
+        		"A 씨에 따르면 이 남성은 A 씨가 화장실 칸에서 나오지도 못하게 막고 얼굴 등 머리를 집중적으로 폭행했다.\r\n" + 
+        		"\r\n" + 
+        		"A 씨는 비명 등을 지르며 도와달라고 소리쳤지만, 폭행 장소가 벌어진 3층에는 노래방이 있어 A 씨 목소리는 밖으로 들리지 않은 것으로 전해졌다.\r\n" + 
+        		"\r\n" + 
+        		"이 남성은 폭행을 당하다 밖으로 뛰쳐나온 여성을 계속 쫓아가 지속해서 폭행을 저지른 것으로 알려졌다.\r\n" + 
+        		"\r\n" + 
+        		"그러다 A 씨는 남편이 있던 노래방으로 들어가 겨우 폭행에서 벗어날 수 있었고, 피해 사실을 확인한 남편과 노래방 사장이 이 남성을 쫓으러 나왔을 때는 이미 남성은 도주하고 사라진 상태였다.\r\n" + 
+        		"\r\n" + 
+        		"현재 피해 여성은 당시 폭행으로 전치 3주(뇌진탕)의 진단서를 받고 정신과치료를 병행하고 있는 것으로 알려졌다.\r\n" + 
+        		"\r\n" + 
+        		"피해 여성은 현재 불면증과 함께, 당시 폭행 외상 후 스트레스 장애(PTSD) 등으로 집이 아닌 외부 화장실은 전혀 이용하지 못하고 있는 것으로 알려졌다.\r\n" + 
+        		"\r\n" + 
+        		"경찰 관계자는 \"용의자가 도주할 당시 현장에 모자를 떨어트려 이를 국립수사과학연구원에 의뢰를 맡긴 상태\"라며 \"현재 용의자 검거에 최선을 다하고 있다\"고 밝혔다.\r\n" + 
+        		"\r\n" + 
+        		"한승곤 기자 hsg@asiae.co.kr\r\n" + 
+        		"\r\n" + 
+        		"이슈 · 수원 초등생 집단폭행\r\n" + 
+        		"ⓒ세계를 보는 창 경제를 보는 눈, 아시아경제(www.asiae.co.kr)");
         KomoranResult analyzeResultList = komoran.analyze(strToAnalyze);
 
-        System.out.println(analyzeResultList.getPlainText());
+        
+        System.out.println(analyzeResultList.getNouns());
+        
+        
+//이건 가로로 뽑는 코드
+//      System.out.println(analyzeResultList.getPlainText());
+     
 
-        List<Token> tokenList = analyzeResultList.getTokenList();
-       
-       
-    
-       
-        for (Token token : tokenList) {
-           
-            System.out.format("(%2d, %2d) %s/%s\n", token.getBeginIndex(), token.getEndIndex(), token.getMorph(), token.getPos());
-        }
+//첫번째 명사만 뽑는 코드      
+//      System.out.println(analyzeResultList.getMorphesByTags("NP", "NNP", "JKB"));
+
+
+//전체 분석해서 뽑는 코드    	
+//      List<Token> tokenList = analyzeResultList.getTokenList();  
+//        for (Token token : tokenList) {           
+//        	System.out.format("(%2d, %2d) %s/%s\n", token.getBeginIndex(), token.getEndIndex(), token.getMorph(), token.getPos());
+//        }
 
 
    }
-
 }
