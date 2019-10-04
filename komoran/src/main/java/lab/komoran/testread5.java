@@ -18,7 +18,7 @@ import kr.co.shineware.nlp.komoran.model.Token;
 
 //https://docs.komoran.kr/firststep/tutorial.html 사이트 참고!!!!
 
-public class testread  {   
+public class testread5  {   
 	   public static void main(String[] args){
 	        
 		    Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
@@ -34,9 +34,22 @@ public class testread  {
 	        }catch(IOException e){
 	            e.printStackTrace();
 	        }
+	        
+	        
+	        
 	        for(String readLine : list){
-	        	 KomoranResult analyzeResultList2 = komoran.analyze(readLine);
-	        	 System.out.print(analyzeResultList2.getNouns());        	
+	        	 KomoranResult analyzeResultList = komoran.analyze(readLine);
+	        	 List<String> message = analyzeResultList.getNouns();
+//	        	 System.out.print(message);	
+	        	 
+	        	 String result = String.join("\t", message);
+//	        	 System.out.println(result);  
+	        	 
+	        	 List<String> message2 = analyzeResultList.getNouns();
+//	        	 System.out.println(message2);    	 
+	        	 
+	        	 String message3 = String.join("\t", message);
+//	 	         System.out.println(message3);   
 
 	        }	        
 	        
