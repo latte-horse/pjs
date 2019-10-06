@@ -33,7 +33,7 @@ public class komoranWansung  {
 					   list = Files.readAllLines(filePath,cs);  //Files 다 읽어와서 
 			   		   String listTap = String.join(" ", list); //String.join으로 문자열화해주고 		   		  		   		  		   		  
 			   		   KomoranResult analyzeResultList = komoran.analyze(listTap); //komoran분석들어가게 해주고
-			   		   List<String> listNo = analyzeResultList.getNouns();  //분석되면 다시 리스트화가 된다...
+			   		   List<String> listNo = analyzeResultList.getNouns();  //분석되면 다시 리스트화가 된다..
 			   		   String listFin = String.join("\t", listNo);  //리스트화된 분석결과를 다시 붙여주고
 			   		   String listFar = listFin + "\n";
 //					   System.out.println(listFar);
