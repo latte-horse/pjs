@@ -102,7 +102,7 @@ public class testread7  {
 //		   	        System.out.println(list);
 		   	        
 		   	        String listTap = String.join("\t", list);
-//		   	        System.out.println(listTap);
+		   	        System.out.println(listTap);
 			        
 			        KomoranResult analyzeResultList = komoran.analyze(listTap);
 			        List<String> listNo = analyzeResultList.getNouns();
@@ -112,7 +112,7 @@ public class testread7  {
 			        
 
 		    		bs.write(message.getBytes()); //Byte형으로만 넣을 수 있음
-				    System.out.println(message);		    		
+//				    System.out.println(message);		    		
 		    		
 		    		bs.flush();
 		            
