@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,70 +24,16 @@ import kr.co.shineware.nlp.komoran.model.Token;
 
 
 
-public class testread7  {   
+public class testread8  {   
 	   public static void main(String[] args) throws IOException {	        
-		    
-		    
-//		    //파일 객체 생성
-//	        Path path = Paths.get("C:/before/1.txt");
-//	        //캐릭터셋 지정
-//	        Charset cs = StandardCharsets.UTF_8;	        
-//	        //파일 내용담을 리스트
-//	        List<String> list = new ArrayList<String>();
-//	        try{
-//	            list = Files.readAllLines(path,cs);
-//	        }catch(IOException e){
-//	            e.printStackTrace();
-//	        }
-	        
-		   
-	        
-//	        try {
-//	 	       // 바이트 단위로 파일읽기
-//	 	        String filePath = "C:/before/1.txt"; // 대상 파일
-//	 	        FileInputStream fileStream = null; // 파일 스트림	 	        
-//	 	        fileStream = new FileInputStream( filePath );// 파일 스트림 생성
-//	 	        
-//	 	        //버퍼 선언
-//	 	        byte[ ] readBuffer = new byte[fileStream.available()];
-//	 	        while (fileStream.read( readBuffer ) != -1){}
-////	 	        System.out.println(new String(readBuffer)); //출력
-//
-//	 	        fileStream.close(); //스트림 닫기
-//	 	    } catch (Exception e) {
-//	 	    	e.getStackTrace();
-//	 	    }
-	     
-		   
-//	        Files.walk(Paths.get("C:/before")).forEach(filePath -> {
-//	            if (Files.isRegularFile(filePath)) {
-//	    	        Charset cs = StandardCharsets.UTF_8;	        
-//	    	        List<String> list = new ArrayList<String>();
-//	    	        try{
-//	    	            list = Files.readAllLines(filePath,cs);
-//	    	        }catch(IOException e){
-//	    	            e.printStackTrace();
-//	    	        }
-//	                System.out.println(list);
-//
-////	    	        String listTap = String.join(" ", list);
-////    
-////	    	        Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
-////	    	        KomoranResult analyzeResultList = komoran.analyze(listTap);
-////	    	        List<String> listNo =  analyzeResultList.getNouns();
-////
-////	    	        String message = String.join("\t", listNo);
-////	    	        
-////	    	        System.out.println(message);
-//	        
-//	            }
-//	                
-//	        });		 
+		 
 		   
 		   Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
 		   
 		   Stream<Path> stream_paths = Files.walk(Paths.get("C:/before"));
-		   List<String> list = new ArrayList<String>();
+		   
+		   
+		   int[] list = new int[30];
 		   Iterator<Path> paths = stream_paths.iterator();
 		   
 		   BufferedOutputStream bs = null;
@@ -98,9 +45,15 @@ public class testread7  {
 		      if (Files.isRegularFile(filePath)) {
 		    	  Charset cs = StandardCharsets.UTF_8;  		   	    	      
 		   	  try{
-		   	    	list = Files.readAllLines(filePath,cs);
-//		   	        System.out.println(list);
+		   		  for(int i=0; i<30;  i++) {
+		   			list = Files.readAllLines(filePath,cs);
+		   			
+		   			return list;
+		   		    System.out.println(list);
 		   	        
+		   		  }
+		   	    	
+		   	       
 		   	        String listTap = String.join("\t", list);
 //		   	        System.out.println(listTap);
 			        
@@ -112,7 +65,7 @@ public class testread7  {
 			        
 
 		    		bs.write(message.getBytes()); //Byte형으로만 넣을 수 있음
-				    System.out.println(message);		    		
+//				    System.out.println(message);		    		
 		    		
 		    		bs.flush();
 		            
