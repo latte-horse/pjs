@@ -35,8 +35,8 @@ public class komoranWansung  {
 			   		   KomoranResult analyzeResultList = komoran.analyze(listTap); //komoran분석들어가게 해주고
 			   		   List<String> listNo = analyzeResultList.getNouns();  //분석되면 다시 리스트화가 된다..
 			   		   String listFin = String.join("\t", listNo);  //리스트화된 분석결과를 다시 붙여주고
-			   		   String listFar = listFin + "\n";
-//					   System.out.println(listFar);
+			   		   String listFar = listFin + "\r\n";
+					   System.out.println(listFar);
 		  	   		   bs.write(listFar.getBytes()); //Byte형으로만 넣을 수 있음, 파일쓰기
 			   	   }catch(IOException e){
 			   		   e.printStackTrace();
