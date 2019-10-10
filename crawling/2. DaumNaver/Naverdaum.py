@@ -10,7 +10,7 @@ import lxml
 import json
 import pathlib
 
-########## 다음 키워드 뽑아오기 ################
+########## 다음 키워드 뽑아오기 ##########
 dlist = [] ## 다음 키워드 저장
 html = requests.get("https://www.daum.net").text
 soup = BeautifulSoup(html,'html.parser')
@@ -19,32 +19,28 @@ ranking = soup.select(".list_mini .rank_cont .ir_wa")
 del dlist[:]
 for top in title_list:    
     dlist.append(top.text)
-##############################################    
+#print(dlist)
 
-
-########### 네이버 키워드 뽑아오기 #############
-nlist = [] ## 네이버 키워드 저장
+########### 네이버 키워드 뽑아오기 ##########
+nlist20 = [] ## 네이버 키워드 저장
 html = requests.get('https://www.naver.com/').text
 soup = BeautifulSoup(html, 'html.parser')
 title_list = soup.select('.PM_CL_realtimeKeyword_rolling span[class*=ah_k]')
-nlist20 = []
-for i in title_list :
-    nlist20.append(i.get_text())
+for a in title_list :
+    nlist20.append(a.get_text())
 nlist = nlist20[:10]
-############################################## 
+#print(nlist)
 
-
-########## 키워드 통합 리스트 #################
+########## 키워드 합침##########
 tlist = dlist + nlist
-############################################## 
+#print(NaverDaumList)
 
 
-###############################################################################################
+##################################################################################
 
-
-########## 다음 뉴스 검색하기 ##################
-listdgo = tlist  ## listdgo는 건들지말고 필요시 tlist로 테스트
-DaumList = []  ## 다음 뉴스 저장
+########## 다음 뉴스 검색하기 ##########
+listdgo = tlist
+DaumList = [] ## 다음 뉴스 저장
 furl = "https://search.daum.net/search?w=news&sort=recency&q=" #url를 나눈다(page 1,2,3 넣고 keyword넣기 위해서)
 surl = "&cluster=n&DA=STC&s=NS&a=STCF&dc=STC&pg=1&r=1&p="
 lurl = "&rc=1&at=more&sd=&ed=&period="
@@ -66,7 +62,6 @@ for keyword in listdgo:
         for list,list2 in zip(urllink,urlname):
             daumitem.append({"title" : list2.text , "link" : list.get('href')})
     DaumList.append({"keyword" : keyword , "items" : daumitem})
-##############################################
 
 
 ########## 네이버 뉴스 검색하기 ##########
@@ -76,10 +71,12 @@ import urllib.request
 client_id = "AcSs8vk1vXfmzpFkSX4h" ## 네이버 API id
 client_secret = "WBwj2IuI0D"       ## 네이버 API secret
 
-listngo = tlist  ## listngo는 건들지말고 필요시 tlist로 테스트
-NaverList = []  ## 네이버 뉴스 저장
-for keyword in listngo :  ##len뒤에 값을 나중에 total_title로 가주자고
-    encText = urllib.parse.quote(keyword) ##len뒤에 값을 나중에 total_title로 가주자고
+listngo = tlist
+NaverList = []
+for i in range(len(listngo)) :  ##len뒤에 값을 나중에 total_title로 가주자고
+    Keyword = []
+    Keyword.append(listngo[i])
+    encText = urllib.parse.quote(listngo[i]) ##len뒤에 값을 나중에 total_title로 가주자고
     url = "https://openapi.naver.com/v1/search/news?query=" + encText + "&display=30&start=1&sort=sim" #display값이 뉴스갯수   
     request = urllib.request.Request(url)
     request.add_header("X-Naver-Client-Id",client_id)
@@ -94,18 +91,15 @@ for keyword in listngo :  ##len뒤에 값을 나중에 total_title로 가주자�
             TitleLink.append( {'title' : i['title'], 'link' : i['link']} )    
     else:
         print("Error Code:" + rescode)
-    NaverList.append({"keyword" : keyword , "items" : TitleLink})    
-##############################################
+    NaverList.append({"keyword" : Keyword , "items" : TitleLink})    
 
-########## 뉴스 통합 리스트 ###################
+########## 뉴스 합침 ##########
 TotalList = DaumList + NaverList
-##############################################
+#print(TotalList)
 
 
-###############################################################################################
+########## 파일 저장 ##########    
 
-
-########## 파일 저장 #########################    
-PrintList = TotalList  ## PrintList는 건들지말고 필요시 TotalList로 테스트
-with open('C:/after/out', 'w', encoding = "utf-8") as make_file:
-    json.dump(PrintList, make_file, ensure_ascii = False, indent = "\t")
+PrintList = TotalList
+with open('C:/after/out','w',encoding = "utf-8") as make_file:
+    json.dump(PrintList,make_file,ensure_ascii = False,indent="\t")
