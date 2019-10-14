@@ -1,4 +1,7 @@
-*.class
-
-#komoran
-komoran/target/
+.metadata/
+.recommenders/
+RemoteSustemsTempFiles/
+Servers/
+*.target/
+.classpath
+.project
