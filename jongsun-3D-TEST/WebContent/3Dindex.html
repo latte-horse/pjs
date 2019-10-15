@@ -1,0 +1,36 @@
+<html>
+<!--  ver.1 : text as nodes -->
+
+<head>
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>    
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+  <script>
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+        .jsonUrl('miserables2.json')
+        .nodeAutoColorBy('group')
+        .nodeThreeObject(node => {
+          // use a sphere as a drag handle
+          const obj = new THREE.Mesh(
+            new THREE.SphereGeometry(4),
+            new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+          );
+          // add text sprite as child
+          const sprite = new SpriteText(node.id);
+          sprite.color = node.color;
+          sprite.textHeight = 8;
+          obj.add(sprite);
+          return obj;
+        });
+    // Spread nodes a little wider
+    Graph.d3Force('charge').strength(-120);
+  </script>
+</body>
+
+</html>

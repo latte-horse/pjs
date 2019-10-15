@@ -1,0 +1,65 @@
+<html>
+<!--  ver.3 : text as nodes, pause/resume rotation, curved lines -->
+
+<head>
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>    
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+  <div style="position: absolute; top: 5px; right: 5px;">   
+    <button id="rotationToggle" style="margin: 8px; height: 25px; width: 150px;">
+      Pause Rotation
+    </button>
+  </div>
+
+  <script>
+    const distance = 700; //카메라거리    
+   
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))        
+        .cameraPosition({ z: distance })
+        .linkCurvature('curvature')
+        .linkCurveRotation('rotation')
+        .linkDirectionalParticles(2)
+        .jsonUrl('miserables.json')
+        .nodeAutoColorBy('group')
+        .nodeThreeObject(node => {
+          // use a sphere as a drag handle
+          const obj = new THREE.Mesh(
+            new THREE.SphereGeometry(10),
+            new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+          );
+          // add text sprite as child
+          const sprite = new SpriteText(node.id);
+          sprite.color = node.color;
+          sprite.textHeight = 8;
+          obj.add(sprite);
+          return obj;
+        });
+    // Spread nodes a little wider
+    Graph.d3Force('charge').strength(-120);
+    
+    let isRotationActive = true;
+    // camera orbit
+    let angle = 0;
+    setInterval(() => {
+      if (isRotationActive) {
+        Graph.cameraPosition({
+          x: distance * Math.sin(angle),
+          z: distance * Math.cos(angle)
+        });
+        angle += Math.PI / 300;
+      }
+    }, 60);
+
+    document.getElementById('rotationToggle').addEventListener('click', event => {
+      isRotationActive = !isRotationActive;
+      event.target.innerHTML = `${(isRotationActive ? 'Pause' : 'Resume')} Rotation`;
+    });    
+  </script>
+</body>
+</html>

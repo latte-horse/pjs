@@ -1,0 +1,67 @@
+<html>
+<!--  ver.1 : text as nodes -->
+
+<head>
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>
+  <script type="text/javascript" src="dat.gui.js"></script>    
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+  <script>
+    const graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+        .jsonUrl('miserables2.json')
+        
+        .linkColor(link => link.color ? 'red' :  'green' )
+        
+             
+        .nodeThreeObject(node => {
+          const obj = new THREE.Mesh(
+            new THREE.SphereGeometry(4),
+            new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+          );          
+          const sprite = new SpriteText(node.id);          
+          sprite.textHeight = 8;
+          obj.add(sprite);
+          return obj;
+        })
+    	
+    	.linkThreeObject(link => {
+    		const lineobj = new THREE.LineBasicMaterial({color: 'yellow', linewidth: 10, linecap: 'round', linejoin:  'round' }
+    		);
+    		const linesprite = new SpriteText(node.val);
+    		lineobj.add(linesprite);
+    		return lineobj;
+    	});
+    
+    
+    const linkForce = graph
+    .d3Force('link')
+    .distance(link => link.color ? settings.redDistance : settings.greenDistance);
+    
+
+    graph
+    .d3Force('link')         
+    .distance(10);
+    
+    
+    
+  //Define GUI
+    const Settings = function() {
+    
+      this.greenDistance = 100;
+    };
+    const settings = new Settings();
+
+
+    
+    
+    
+  </script>
+</body>
+
+</html>

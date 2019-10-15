@@ -1,0 +1,91 @@
+<html>
+<!--  ver.4 : text as nodes, pause/resume rotation, curved lines, click-to-focus -->
+
+<head>
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>    
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+  <div style="position: absolute; top: 5px; right: 5px;">   
+    <button id="rotationToggle" style="margin: 8px; height: 25px; width: 150px;">
+      Pause Rotation
+    </button>
+  </div>
+
+  <script>
+    const distance = 100; //카메라거리    
+    const elem = document.getElementById('3d-graph');  
+    
+    const Graph = ForceGraph3D()
+      (elem)        
+        .cameraPosition({ z: distance })
+        .jsonUrl('miserables2.json')
+        .linkColor(link => link.color ? 'red' : 'yellow' )
+        .linkOpacity(0.5) //링크투명도
+        .linkDirectionalParticles(2) //링크안에 순환하는 작은구체개수
+        .linkCurvature('curvature')
+        .linkCurveRotation('rotation')        
+        .nodeAutoColorBy('group')
+        .nodeThreeObject(node => 
+        	{          
+	        	const obj = new THREE.Mesh(
+	            	new THREE.TorusGeometry(node.val, 0.5, 16, 100), //뼈대 구형에 대한 각도 면체등의 옵션들(i, 32, 32)
+	            	new THREE.MeshBasicMaterial(	            			
+	            			{ depthWrite: false, transparent: true, opacity: 0.3, color: node.color }
+	            			//{color: 'yellow'}
+	            			//{ depthWrite: true, transparent: true, opacity: 0 }
+	            			//deptWrite(t/f):node랑 텍스트 겹친다 
+	            			//transparent:투명도, opacity로 조절
+	            	)
+	          	);
+	        	
+	        	
+	        	const sprite = new SpriteText(node.id); //three.js 메소드
+	          	sprite.color = node.color;	          		          	
+	          	sprite.textHeight = node.val; //텍스트높이 node의 val값별 지정	          	
+	          	obj.add(sprite);
+	          	return obj;
+        	}
+        )
+        
+        
+    	.onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
+    	.onNodeClick(node => {	      
+	    	const distance = 40;
+	      	const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);	      
+	      	Graph.cameraPosition(
+	      		{ x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, //new position
+	            node, // lookAt ({ x, y, z })
+	            3000  // ms transition duration
+	      	);
+    	});
+    
+    //드래그로 끌었을때 늘어나는 정도
+    Graph.d3Force('charge').strength(-120);
+    
+    let isRotationActive = true;
+    let angle = 0;
+    setInterval(() => {
+    	if (isRotationActive) {
+        	Graph.cameraPosition({
+          		x: distance * Math.sin(angle),
+          		z: distance * Math.cos(angle)
+        	});
+        angle += Math.PI / 200;
+        }
+    }, 25);
+
+    document.getElementById('rotationToggle').addEventListener('click', event => {
+    	isRotationActive = !isRotationActive;
+      	event.target.innerHTML = `${(isRotationActive ? 'Pause' : 'Resume')} Rotation`;
+    }); 
+    
+  </script>
+</body>
+
+
+</html>

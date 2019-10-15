@@ -1,0 +1,61 @@
+{
+  "nodes": [
+    {
+      "id": "조국",
+      "group": 1,
+      "val" : 5
+    },    
+    {
+      "id": "조국 사퇴",
+      "group": 2,
+      "val" : 4
+    },
+    {
+      "id": "서초구",
+      "group": 2,
+      "val" : 1      
+    },
+    {
+      "id": "서초",
+      "group": 3,
+      "val" : 1      
+    },
+    {
+      "id": "시위",
+      "group": 3,
+      "val" : 4      
+    },
+    {
+      "id": "사퇴",
+      "group": 3,
+      "val" : 2      
+    }   
+  ],
+  "links": [
+    {
+      "source": "조국 사퇴",
+      "target": "조국",
+      "value": 1
+    },
+    {
+      "source": "서초구",
+      "target": "조국",
+      "value": 6     
+    },
+    {
+      "source": "서초",
+      "target": "조국",
+      "value": 6     
+    },
+    {
+      "source": "시위",
+      "target": "서초",
+      "value": 6     
+    },        
+     {
+      "source": "사퇴",
+      "target": "서초",
+      "value": 6     
+    }    
+  ]
+}
