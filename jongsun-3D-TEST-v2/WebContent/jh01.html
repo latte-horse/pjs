@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style> body { margin: 0; } </style>
+ 	<script type="text/javascript" src="three.js"></script>
+ 	<script type="text/javascript" src="three-spritetext.js"></script>
+ 	<script type="text/javascript" src="3d-force-graph.js"></script>
+ 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div id="3d-graph"></div>
+	
+	<script> 
+		$(document).ready(function() { 
+			$.getJSON('data/test01.json', function(data){ 
+				gData = data;
+				
+				console.log(gData);
+				
+				const graph = ForceGraph3D()(document.getElementById('3d-graph')) 	   
+					.nodeAutoColorBy('group')      
+			        .nodeThreeObject(node => {
+						const obj = new THREE.Mesh(
+			            	new THREE.SphereGeometry(10),
+			            	new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+			          	);          
+						const sprite = new SpriteText(node.id);
+						sprite.color = node.color;
+			        	sprite.textHeight = 8;
+			        	obj.add(sprite);
+			        	return obj;
+			        })      
+					.linkOpacity(0.3)      
+			        .graphData(gData);    
+			    
+					const linkForce = graph
+			        .d3Force('link')
+			        .distance(link => link.dist);
+						
+					}
+				);
+		}, false)
+	</script>
+	
+	
+</body>
+
+</html>
