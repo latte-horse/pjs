@@ -1,0 +1,54 @@
+<html>
+<!--  ver.1 : text as nodes -->
+
+<head>
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>
+  <script type="text/javascript" src="dat.gui.js"></script> 
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+    const nodes = ['cat', 'dog', 'eagle', 'elephant'];
+    const nodes_distance = [1, 5, 30, 30];
+    // Random connected graph
+    const gData = {
+      nodes: nodes.map((name, id) => ({ id, name })),
+      links: [...Array(nodes.length).keys()]
+        .filter(id => id)
+        .map(id => ({
+          source: id,
+          target: 0,
+          gData_distance: nodes_distance[id]
+       
+        }))
+    };
+
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+      .nodeThreeObject(({ name }) => {
+        // use a sphere as a drag handle
+        const obj = new THREE.Mesh(
+          new THREE.SphereGeometry(7),
+          new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+        );
+
+        // add img sprite as child
+         const sprite = new SpriteText(nodes);          
+          sprite.textHeight = 8;
+        obj.add(sprite);
+        return obj;
+      })
+      .graphData(gData);
+    
+    const linkForce = Graph
+    .d3Force('link')
+    .distance(link => link.gData_distance);
+  </script>
+</body>
+
+</html>

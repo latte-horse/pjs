@@ -1,0 +1,22 @@
+{
+  "nodes" : [ 
+    	  {"id": "조국", "group": 1},
+    	  {"id": "사퇴", "group": 2},
+    	  {"id": "서초구", "group": 3},
+    	  {"id": "시위", "group": 3},
+    	  {"id": "촛불", "group": 3},
+    	  {"id": "박종선", "group": 4},
+    	  {"id": "종선", "group": 4},
+    	  {"id": "수원", "group": 4}    	  
+      ],
+  "links" : [
+    	  {"source": "사퇴", "target": "조국", "dist" : 1},
+    	  {"source": "서초구", "target": "조국", "dist" : 3},
+    	  {"source": "서초구", "target": "사퇴", "dist" : 3},
+    	  {"source": "촛불", "target": "서초구", "dist" : 7},
+    	  {"source": "시위", "target": "서초구", "dist" : 10},
+    	  {"source": "박종선", "target": "조국", "dist" : 200},
+    	  {"source": "종선", "target": "박종선", "dist" : 5},
+    	  {"source": "수원", "target": "박종선", "dist" : 5}
+      ]
+}

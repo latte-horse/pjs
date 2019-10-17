@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<!--  ver.1 : text as nodes -->
+
+<head>
+  <meta charset="UTF-8">	
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript">
+            $(document).ready(function() {
+                $.getJSON( "miserables3.json", function( data ) {
+                    $("#gname").html(data["name"]);
+                    $(data["members"]).each(function(i, member) {
+                        if (i != 0) { $("#members").append(", "); }
+                        $("#members").append(member);
+                    });
+                    $.each(data["albums"], function(key, value) {
+                        $("#albums").append("<li>" + key + ": " + value + "</li>\n");
+                    });
+                });
+            });
+        </script>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+  	const nodes = {"id": "조국"};
+
+  	const jsonObject1 = JSON.parce(nodes);
+	console.log(nodes.id);
+	
+ 
+  </script>
+  
+  <!-- current resources -->
+  
+</body>
+
+</html>

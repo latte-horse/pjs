@@ -1,0 +1,24 @@
+<html>
+<!--  ver.1 : text as nodes -->
+
+<head>
+<meta charset="UTF-8">
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+        .jsonUrl('miserables3.json')
+        ;
+
+  </script>
+</body>
+
+</html>

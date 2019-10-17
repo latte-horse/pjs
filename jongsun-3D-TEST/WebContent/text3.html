@@ -1,0 +1,63 @@
+<html>
+<!--  ver.1 : text as nodes -->
+
+<head>
+<meta charset="UTF-8">
+  <style> body { margin: 0; } </style>
+  <script type="text/javascript" src="three.js"></script>
+  <script type="text/javascript" src="three-spritetext.js"></script>
+  <script type="text/javascript" src="3d-force-graph.js"></script>
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+	const json =  
+	const source = ["조국 사퇴", "서초구", "서초", "시위", "사퇴"]
+	const target = ["조국", "조국", "조국", "서초", "서초"]
+	const dist = [1, 3, 10, 20, 50, 50]
+  
+	const N = 6;
+    const gData = {
+      nodes: [...Array(N).keys()].map(i => ({ id: i })),
+      links: [...Array(N).keys()]
+        .filter(id => id)
+        .map(id => ({
+          source: source,
+          target: target,          
+          distance: dist[id]
+        }))
+    };
+  
+    const Graph = ForceGraph3D()
+      (document.getElementById('3d-graph'))
+      
+      .nodeThreeObject(node => {
+          // use a sphere as a drag handle
+          const obj = new THREE.Mesh(
+            new THREE.SphereGeometry(10),
+            new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+          );
+
+          // add text sprite as child
+          const sprite = new SpriteText(node.id);
+          sprite.color = node.color;
+          sprite.textHeight = 8;
+          obj.add(sprite);
+
+          return obj;
+        })    
+      
+        .graphData(gData);
+    
+    
+    const linkForce = graph
+    .d3Force('link')
+    .distance(link => link.distance );
+        
+
+  </script>
+</body>
+
+</html>
