@@ -17,8 +17,6 @@
 			$.getJSON('data/test01.json', function(data){ 
 				gData = data;
 				
-				console.log(gData);
-				
 				const graph = ForceGraph3D()(document.getElementById('3d-graph')) 	   
 					.nodeAutoColorBy('group')      
 			        .nodeThreeObject(node => {

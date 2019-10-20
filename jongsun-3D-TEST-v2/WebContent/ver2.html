@@ -1,12 +1,13 @@
-<html>
 <!--
 	ver.2 : 
 		노드 : 노드에 텍스트로 표시, 노드 그룹별 자동 색상
 		링크 : 링크 길이 지정값 주기, 링크에 작은 구체 꾸미기
 		뷰어 :
 -->
-
+<!DOCTYPE html>
+<html>
 <head>
+    <meta charset="utf-8">
 	<style> body { margin: 0; } </style>
  	<script type="text/javascript" src="three.js"></script>
  	<script type="text/javascript" src="three-spritetext.js"></script>
@@ -15,7 +16,6 @@
 
 <body>
 	<div id="3d-graph"></div>
-
 	<script>  
 		const gData = {
 			nodes : [
@@ -42,25 +42,25 @@
 		};
 		const graph = ForceGraph3D()
 			(document.getElementById('3d-graph')) 	   
-		.nodeAutoColorBy('group')      
-        .nodeThreeObject(node => {
-			const obj = new THREE.Mesh(
-            	new THREE.SphereGeometry(10),
-            	new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
-          	);          
-			const sprite = new SpriteText(node.id);
-			sprite.color = node.color;
-     	   sprite.textHeight = 8;
-     	   obj.add(sprite);
-     	   return obj;
-        })      
-		.linkOpacity(0.3)		
-		.linkDirectionalParticles(3)
-        .graphData(gData);    
+			.nodeAutoColorBy('group')      
+	        .nodeThreeObject(node => {
+				const obj = new THREE.Mesh(
+	            	new THREE.SphereGeometry(10),
+	            	new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+	          	);          
+				const sprite = new SpriteText(node.id);
+					sprite.color = node.color;
+	     	    	sprite.textHeight = 8;
+	     	    	obj.add(sprite);
+	     	    return obj;
+	        })      
+			.linkOpacity(0.3)		
+			.linkDirectionalParticles(3)
+	        .graphData(gData);    
     
 		const linkForce = graph
-        .d3Force('link')
-        .distance(link => link.dist);
+        	.d3Force('link')
+        	.distance(link => link.dist);
 	</script>  
 </body>
 

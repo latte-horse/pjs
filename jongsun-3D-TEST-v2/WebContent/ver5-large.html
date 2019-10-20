@@ -1,12 +1,13 @@
-<html>
 <!--
 	ver.5 : 
 		노드 : 노드에 텍스트로 표시, 노드 그룹별 자동 색상, val값별 노드모양 및 텍스트 크기
 		링크 : 링크 길이 지정값 주기, 링크에 작은 구체 꾸미기
 		뷰어 : 노드클릭시 카메라 카메라 줌인, 카메라 회전 추가
 -->
-
+<!DOCTYPE html>
+<html>
 <head>
+    <meta charset="utf-8">
 	<style> body { margin: 0; } </style>
  	<script type="text/javascript" src="three.js"></script>
  	<script type="text/javascript" src="three-spritetext.js"></script>
@@ -20,7 +21,6 @@
       		Pause Rotation
     	</button>
 	</div>
-
 	<script>  
 		const gData = {
 			nodes : [
@@ -64,36 +64,36 @@
 		const elem = document.getElementById('3d-graph');
 		const graph = ForceGraph3D()
 			(elem) 	   
-		.nodeAutoColorBy('group')      
-        .nodeThreeObject(node => {
-			const obj = new THREE.Mesh(
-            	new THREE.TorusGeometry(node.val, 0.5, 16 , 100),
-            	new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0.5, color: node.color })
-          	);          
-			const sprite = new SpriteText(node.id);
-			sprite.color = node.color;
-     	   sprite.textHeight = node.val;
-     	   obj.add(sprite);
-     	   return obj;
-        })      
-		.linkOpacity(0.3)		
-		.linkDirectionalParticles(2)		
-		.onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
-        .onNodeClick(node => {
-        	const distance = 40;
-          	const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
-	        graph.cameraPosition(
-	        	{ x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
-	            node, // lookAt ({ x, y, z })
-	            3000  // ms transition duration
-	        );
-        })
-        .cameraPosition({ z: c_distance })
-        .graphData(gData);    
+			.nodeAutoColorBy('group')      
+	        .nodeThreeObject(node => {
+				const obj = new THREE.Mesh(
+	            	new THREE.TorusGeometry(node.val, 0.5, 16 , 100),
+	            	new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0.5, color: node.color })
+	          	);          
+				const sprite = new SpriteText(node.id);
+					sprite.color = node.color;
+	     	   		sprite.textHeight = node.val;
+	     	   		obj.add(sprite);
+	     		return obj;
+	        })      
+			.linkOpacity(0.3)		
+			.linkDirectionalParticles(2)		
+			.onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
+	        .onNodeClick(node => {
+	        	const distance = 40;
+	          	const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+		        graph.cameraPosition(
+		        	{ x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+		            node, // lookAt ({ x, y, z })
+		            3000  // ms transition duration
+		        );
+	        })
+	        .cameraPosition({ z: c_distance })
+	        .graphData(gData);    
     
 		const linkForce = graph
-        .d3Force('link')
-        .distance(link => link.dist);
+        	.d3Force('link')
+        	.distance(link => link.dist);
 		
 		// Spread nodes a little wider
 	    //graph.d3Force('charge').strength(-120);
@@ -102,18 +102,18 @@
 	    // camera orbit
 	    let angle = 0;
 	    setInterval(() => {
-	      if(isRotationActive) {
-	        graph.cameraPosition({
-	          x: c_distance * Math.sin(angle),
-	          z: c_distance * Math.cos(angle)
-	        });
-	        angle += Math.PI / 10000;
-	      }
-	    }, 100);
+	    	if(isRotationActive) {
+	        	graph.cameraPosition({
+	          		x: c_distance * Math.sin(angle),
+	          		z: c_distance * Math.cos(angle)
+	        	});
+	        	angle += Math.PI / 1500;
+	      	}
+	    }, 10);
 
 	    document.getElementById('rotationToggle').addEventListener('click', event => {
-	      isRotationActive = !isRotationActive;
-	      event.target.innerHTML = `${(isRotationActive ? 'Pause' : 'Resume')} Rotation`;
+	    	isRotationActive = !isRotationActive;
+	      	event.target.innerHTML = `${(isRotationActive ? 'Pause' : 'Resume')} Rotation`;
 	    }); 
 	</script>  
 </body>

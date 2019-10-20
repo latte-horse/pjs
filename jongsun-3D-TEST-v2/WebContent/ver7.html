@@ -1,9 +1,10 @@
 <!--
-	ver.6 : 
+	ver.7 : 
 		노드 : 노드에 텍스트로 표시, 노드 그룹별 자동 색상, val값별 노드모양 및 텍스트 크기, 노드모양 3D느낌으로
 		링크 : 링크 길이 지정값 주기, 링크에 작은 구체 꾸미기
 		뷰어 : 노드클릭시 카메라 카메라 줌인, 카메라 회전 추가
 		JSON 외부에서 참조방식, JQuery 추가
+		조명 : 조명추가
 -->
 <!DOCTYPE html>
 <html>
@@ -34,10 +35,15 @@
 				(elem) 	   
 				.nodeAutoColorBy('group')      
 		        .nodeThreeObject(node => {
-					const obj = new THREE.Mesh(										
+					const obj = new THREE.Mesh(
 		           		new THREE.SphereGeometry(node.val, 32, 32),
 		           		new THREE.MeshPhongMaterial({ depthWrite: false, transparent: true, opacity: 0.5, color: node.color })
-		         	);				
+		         	);
+					const spotLight = new THREE.SpotLight(0xFFFFFF);
+						spotLight.position.set(-40,60,30);  
+						obj.add(spotLight);				
+					const renderer = new THREE.WebGLRenderer();
+						renderer.shadowMap.enabled = true;
 					const sprite = new SpriteText(node.id);
 						sprite.color = node.color;
 		    	    	sprite.textHeight = node.val;
