@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<style> body { margin: 0; } </style>
+ 	<script type="text/javascript" src="three.js"></script>
+ 	<script type="text/javascript" src="three-spritetext.js"></script>
+ 	<script type="text/javascript" src="3d-force-graph.js"></script>
+ 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+  const gData = {
+			nodes : [
+				{"id": "조국", "group": 1, "val":5, "color":"red", "color2":"pink"},
+	  	  		{"id": "사퇴", "group": 2, "val":3, "color":"red", "color2":"pink"},
+	  	  		{"id": "서초구", "group": 3, "val":2, "color":"red", "color2":"pink"},
+	  	  		{"id": "시위", "group": 3, "val":2, "color":"red", "color2":"pink"},
+	  	  		{"id": "촛불", "group": 3, "val":1, "color":"red", "color2":"pink"},
+	  	  		{"id": "박종선", "group": 4, "val":10, "color":"red", "color2":"pink"},
+	  	  		{"id": "종선", "group": 4, "val":4, "color":"red", "color2":"pink"},
+	  	  		{"id": "수원", "group": 4, "val":2, "color":"red", "color2":"pink"}   	  
+    		],
+    		links : [
+	  	  		{"source": "사퇴", "target": "조국", "dist" : 1},
+	  	  		{"source": "서초구", "target": "조국", "dist" : 3},
+	  	  		{"source": "서초구", "target": "사퇴", "dist" : 3},
+	  	  		{"source": "촛불", "target": "서초구", "dist" : 7},
+	  	  		{"source": "시위", "target": "서초구", "dist" : 10},
+	  	  		{"source": "박종선", "target": "조국", "dist" : 10},
+	  	  		{"source": "종선", "target": "박종선", "dist" : 5},
+	  	 		{"source": "수원", "target": "박종선", "dist" : 5},
+	  			{"source": "종선", "target": "시위", "dist" : 20}
+    		]
+		};
+
+  let highlightNodes = [];
+  
+  
+  const Graph = ForceGraph3D()
+    (document.getElementById('3d-graph'))
+      .graphData(gData)
+      .nodeColor(node => highlightNodes.indexOf(node) === -1 ? node.color2 : node.color)
+      .onNodeHover(node => {
+          // no state change
+          if ((!node && !highlightNodes.length) || (highlightNodes.length === 1 && highlightNodes[0] === node)) return;
+          highlightNodes = node ? [node] : [];
+          updateHighlight();          
+        });
+
+  function updateHighlight() {
+      // trigger update of highlighted objects in scene
+      Graph
+      .nodeColor(Graph.nodeColor());      
+    }
+  
+  var people = [
+	  { "name": "bob", "dinner": "pizza" },
+	  { "name": "john", "dinner": "sushi" },
+	  { "name": "larry", "dinner": "hummus" }
+	];
+
+	var men = gData.nodes.filter(function (person) { return gData.nodes.group == "1" });
+	
+	console.log(men[0].color);
+  
+  
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Clock</title>
+		<style type="text/css">
+			body {
+				background-color: #000000;
+			}
+			#topController {
+				height:150px;
+				width:300px;
+				margin:0 auto; 
+			}
+			#timer {
+				text-align:center;
+				height:150px;
+				width:300px;				
+				background: #000000;
+				font-family: sans-serif;
+				font-weight: bold;
+				color: #FFFFFF;
+				margin:0; 
+				padding:0; 	
+			}
+			#mainPage {
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div id="topController">
+			<div id="timer">
+				<span id="clocktext" style="font-kerning:none"></span>
+			</div>
+			<div>
+				<span><button type="button" id="before">이전</button></span>
+				<span><button type="button" id="now">지금</button></span>
+				<span><button type="button" id="after">다음</button></span>
+			</div>			
+		</div>
+		
+		<div id="mainPage">dsdsd</div>
+		
+		
+		
+		
+				
+		<script>			
+			var textElem = document.getElementById("clocktext");
+			var targetWidth = 0.9;  // Proportion of full screen width
+			var curFontSize = 20;  // Do not change			
+			function updateClock() {
+				var d = new Date();
+				var s = "";
+				s += (10 > d.getHours  () ? "0" : "") + d.getHours  () + ":";
+				s += (10 > d.getMinutes() ? "0" : "") + d.getMinutes();
+				textElem.textContent = s;
+				setTimeout(updateClock, 60000 - d.getTime() % 60000 + 100);
+			}
+			function updateTextSize() {
+				for (var i = 0; 3 > i; i++) {  // Iterate for better better convergence
+					curFontSize *= targetWidth / (textElem.offsetWidth / textElem.parentNode.offsetWidth);
+					textElem.style.fontSize = curFontSize + "pt";
+				}
+			}
+			updateClock();
+			updateTextSize();
+			window.addEventListener("resize", updateTextSize);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.bg {
+	background-image: url(https://alalstjr.github.io/promote.github.io/static/img/post/2018-11-25-1.jpg);
+	background-size: cover;
+	padding-bottom: 50%;    
+	position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+	opacity: 0;
+	transition: 0.3s all;
+}
+.bg #bulr-cover {
+	background-repeat: no-repeat;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	/*background-color: #333;*/
+	background: -moz-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 300px);
+	background: -webkit-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 300px);
+	background: -ms-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 300px);
+	background: -o-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 300px);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+@media all and (max-width:1280px) { 
+    .bg #bulr-cover {
+	   background: -moz-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 200px);
+	   background: -webkit-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 200px);
+	   background: -ms-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 200px);
+	   background: -o-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 200px);
+    }    
+}
+@media all and (max-width:768px) { 
+    .bg #bulr-cover {
+	   background: -moz-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 150px);
+	   background: -webkit-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 150px);
+	   background: -ms-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 150px);
+	   background: -o-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 150px);
+    }    
+}
+@media all and (max-width:480px) { 
+    .bg #bulr-cover {
+	   background: -moz-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 100px);
+	   background: -webkit-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 100px);
+	   background: -ms-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 100px);
+	   background: -o-radial-gradient(circle closest-side,transparent , rgba(255,255,255,1) 100px);
+    }    
+}
+</style>
+
+</head>
+<body>
+<div id="first-box" class="big-box">    
+    <div class="bg">
+        <div id="bulr-cover">sdfsdfdsfdsfsdf</div>
+    </div>
+</div>
+
+<script>
+// 마우스 호버 이벤트 구역
+var _mh = [];
+
+// 블러 커버
+_mh.bulrCover = document.getElementById('bulr-cover');
+_mh.bigArea = document.getElementById('first-box');
+_mh.bg = document.getElementsByClassName('bg').item(0);
+
+_mh.mouse = function(e) {
+	// 해상도 1920 x 938 기준으로 맞춤
+	
+	// 스크롤 높이 위치 값
+	var scrollY = document.documentElement.scrollTop;
+	
+	// 해상도의 넓이값과 높이값을 참조
+	var screenX = (window.innerWidth / 2);
+	var screenY = (window.innerHeight / 2) - scrollY;
+	
+	// 마우스 위치값과 해상도 값을 계산하여 배경 위치 조정
+	var x = e.clientX - screenX;
+	var y = e.clientY - screenY;
+	
+	
+	// 마우스 오버 아웃 기능 구현
+	if( this == _mh.bigArea ) {
+		_mh.bg.style.opacity = ('1');
+	}
+	
+	/*console.log('마우스 인');*/
+	
+	_mh.bulrCover.style.backgroundPosition = ''+x+'px '+y+'px';
+}
+
+_mh.mouseOut = function(e) {
+	_mh.bg.style.opacity = ('0');
+	
+	/*console.log('마우스 아웃');*/
+}
+
+// 사용자가 마우스를 움직이는경우 함수 실행
+_mh.bigArea.addEventListener('mousemove',_mh.mouse);
+_mh.bigArea.addEventListener('mouseout',_mh.mouseOut);
+</script>
+</body>
+</html>

@@ -17,7 +17,7 @@
 <body>
 	<div id="3d-graph"></div>
 	<script>  
-		const gData = {
+	const gData = {
 			nodes : [
 				{"id": "조국", "group": 1, "val":5},
     	  		{"id": "사퇴", "group": 2, "val":3},
@@ -26,18 +26,33 @@
     	  		{"id": "촛불", "group": 3, "val":1},
     	  		{"id": "박종선", "group": 4, "val":10},
     	  		{"id": "종선", "group": 4, "val":4},
-    	  		{"id": "수원", "group": 4, "val":2}      	  
+    	  		{"id": "수원", "group": 4, "val":2},    	  		
+    	  		{"id": "그룹5-1", "group": 5, "val":2},
+    	  		{"id": "그룹5-2", "group": 5, "val":2},
+    	  		{"id": "그룹5-3", "group": 5, "val":2},
+    	  		{"id": "그룹5-4", "group": 5, "val":2},
+    	  		{"id": "그룹5-5", "group": 5, "val":2},
+    	  		{"id": "그룹5-6", "group": 5, "val":2}
       		],
       		links : [
     	  		{"source": "사퇴", "target": "조국", "dist" : 1},
     	  		{"source": "서초구", "target": "조국", "dist" : 3},
     	  		{"source": "서초구", "target": "사퇴", "dist" : 3},
     	  		{"source": "촛불", "target": "서초구", "dist" : 7},
-    	  		{"source": "시위", "target": "서초구", "dist" : 50},
-    	  		{"source": "박종선", "target": "조국", "dist" : 100},
+    	  		{"source": "시위", "target": "서초구", "dist" : 10},
+    	  		{"source": "박종선", "target": "조국", "dist" : 20},
     	  		{"source": "종선", "target": "박종선", "dist" : 5},
     	 		{"source": "수원", "target": "박종선", "dist" : 5},
-    			{"source": "종선", "target": "시위", "dist" : 200}
+    			{"source": "종선", "target": "시위", "dist" : 30},
+    			{"source": "그룹5-1", "target": "박종선", "dist" : 20},
+    			{"source": "그룹5-2", "target": "그룹5-1", "dist" : 5},
+    			{"source": "그룹5-3", "target": "그룹5-1", "dist" : 5},
+    			{"source": "그룹5-4", "target": "그룹5-1", "dist" : 5},
+    			{"source": "그룹5-5", "target": "그룹5-1", "dist" : 5},
+    			{"source": "그룹5-5", "target": "그룹5-3", "dist" : 8},
+    			{"source": "그룹5-2", "target": "그룹5-3", "dist" : 8},
+    			{"source": "그룹5-2", "target": "그룹5-5", "dist" : 8},
+    			{"source": "그룹5-6", "target": "그룹5-2", "dist" : 5}
       		]
 		};
 		const graph = ForceGraph3D()
