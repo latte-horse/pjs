@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style> body { margin: 0; } </style> 
+  <script type="text/javascript" src="force-graph.min.js"></script>
+</head>
+
+<body>
+<div id="graph"></div>
+
+<script>
+fetch('test.json').then(res => res.json()).then(data => {
+    const elem = document.getElementById('graph');
+    const Graph = ForceGraph()(elem)
+      .graphData(data)      
+      .nodeAutoColorBy('group')
+      .nodeCanvasObject((node, ctx, globalScale) => {
+          const label = node.id;
+          const fs = node.val;
+          const fontSize = 12/globalScale;
+          ctx.font = `${node.val}px Sans-Serif`;
+          const textWidth = ctx.measureText(label).width;
+          const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2); // some padding
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';          
+          ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+          ctx.beginPath();          
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';          
+          ctx.fillStyle = node.color;          
+          ctx.fillText(label, node.x, node.y);
+        })
+        
+      .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
+      .onNodeClick(node => {
+        // Center/zoom on node
+        Graph.centerAt(node.x, node.y, 1000);
+        Graph.zoom(8, 2000);
+      });
+  });
+</script>
+</body>
+</html>

@@ -38,26 +38,19 @@
 
   let highlightNodes = [];
   
+  var  groupColors = [
+	 {"group": 1, "color":"red"}
+  ]
+  
+  
   const Graph = ForceGraph3D()
     (document.getElementById('3d-graph'))
       .graphData(gData)
-      .nodeColor(node => highlightNodes.indexOf(node) === -1 ? node.color2 : node.color)
-      .onNodeHover(node => {
-          // no state change
-          if (highlightNodes == node) return;          
-          
-          highlightNodes = node ? [node] : [];
+      .nodeColor(node => groupColors[node.group]);
 
-          updateHighlight();          
-        });
-
-  function updateHighlight() {
-      // trigger update of highlighted objects in scene
-      Graph
-      .nodeColor(Graph.nodeColor());
-    }
   
-
+  
+  
   
   </script>
 </body>
