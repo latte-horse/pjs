@@ -39,13 +39,9 @@
 		           		new THREE.SphereGeometry(node.val, 32, 32),
 		           		new THREE.MeshPhongMaterial({ depthWrite: false, transparent: true, opacity: 0.5, color: node.color })
 		         	);
-					const spotLight = new THREE.SpotLight(100);
-						spotLight.position.set(100,1000,100);
-						spotLight.castShadow = true;
+					
 						
-						obj.add(spotLight);				
-					const renderer = new THREE.WebGLRenderer();
-						renderer.shadowMap.enabled = true;
+						
 					const sprite = new SpriteText(node.id);
 						sprite.color = node.color;
 		    	    	sprite.textHeight = node.val;
@@ -53,7 +49,7 @@
 		    	    return obj;
 		       	})      
 				.linkOpacity(0.3)		
-				.linkDirectionalParticles(2)		
+		
 				.onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
 			    .onNodeClick(node => {
 			    	const distance = 40;
@@ -65,7 +61,33 @@
 			    	);
 				})
 			    .cameraPosition({ z: c_distance })
-			    .graphData(gData);    
+			    .graphData(gData)
+			    
+			    
+			    
+			    
+			    
+			    const spotLight = new THREE.SpotLight( 0xffffff );
+						spotLight.position.set(100,1000,100);
+						spotLight.castShadow = true;
+						spotLight.shadow.mapSize.width = 1024;
+						spotLight.shadow.mapSize.height = 1024;
+
+						spotLight.shadow.camera.near = 500;
+						spotLight.shadow.camera.far = 4000;
+						spotLight.shadow.camera.fov = 30;
+						
+						scene.add(spotLight);				
+					const renderer = new THREE.WebGLRenderer();
+						renderer.shadowMap.enabled = true;
+			    
+			    
+						
+			    
+			    
+			    
+			    
+			    ;    
 		   
 			const linkForce = graph
 		       .d3Force('link')
